@@ -6,7 +6,7 @@
 \usage{
 name_contains(
   name,
-  provider = "itis",
+  provider = getOption("taxadb_default_provider", "itis"),
   version = latest_version(),
   db = td_connect(),
   ignore_case = TRUE
@@ -21,7 +21,7 @@ Default is 'itis', which can also be configured using \verb{options(default_taxa
 See \verb{[td_create]} for a list of recognized providers.}
 
 \item{version}{Which version of the taxadb provider database should we use?
-defaults to latest.  See \link{available_versions} for details.}
+defaults to latest.  See \link{tl_import} for details.}
 
 \item{db}{a connection to the taxadb database. See details.}
 
@@ -36,7 +36,8 @@ return all taxa in which scientific name contains the text provided
   \dontshow{
    ## All examples use a temporary directory
    Sys.setenv(TAXADB_HOME=tempdir())
+   options("taxadb_default_provider"="itis_test")
   }
-name_contains("Homo ")
+name_contains("Chera")
 }
 }

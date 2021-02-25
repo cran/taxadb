@@ -8,7 +8,7 @@ td_create(
   provider = getOption("taxadb_default_provider", "itis"),
   schema = c("dwc", "common"),
   version = latest_version(),
-  overwrite = FALSE,
+  overwrite = TRUE,
   lines = 1e+05,
   dbdir = taxadb_dir(),
   db = td_connect(dbdir)
@@ -24,9 +24,9 @@ available provider automatically.}
 (for the Common names table.)}
 
 \item{version}{Which version of the taxadb provider database should we use?
-defaults to latest.  See \link{available_versions} for details.}
+defaults to latest.  See \link{tl_import} for details.}
 
-\item{overwrite}{Should we overwrite existing tables? Default is \code{FALSE}.
+\item{overwrite}{Should we overwrite existing tables? Default is \code{TRUE}.
 Change to "ask" for interactive interface, or \code{TRUE} to force overwrite
 (i.e. updating a local database upon new release.)}
 
@@ -50,15 +50,15 @@ create a local taxonomic database
 \details{
 Authorities currently recognized by taxadb are:
 \itemize{
-\item \code{itis}: Integrated Taxonomic Information System, \url{https://www.itis.gov/}
+\item \code{itis}: Integrated Taxonomic Information System, \verb{https://www.itis.gov}
 \item \code{ncbi}:  National Center for Biotechnology Information,
 \url{https://www.ncbi.nlm.nih.gov/taxonomy}
 \item \code{col}: Catalogue of Life, \url{http://www.catalogueoflife.org/}
 \item \code{tpl}: The Plant List, \url{http://www.theplantlist.org/}
 \item \code{gbif}: Global Biodiversity Information Facility, \url{https://www.gbif.org/}
-\item \code{fb}: FishBase, \url{http://fishbase.org}
+\item \code{fb}: FishBase, \url{https://www.fishbase.de/}
 \item \code{slb}: SeaLifeBase, \url{http://sealifebase.org}
-\item \code{wd}: Wikidata: \url{https://www.wikidata.org/}
+\item \code{wd}: Wikidata: https://www.wikidata.org
 \item \code{ott}: OpenTree Taxonomy:
 \url{https://github.com/OpenTreeOfLife/reference-taxonomy}
 \item \code{iucn}: IUCN Red List, https://iucnredlist.org
@@ -70,12 +70,14 @@ Authorities currently recognized by taxadb are:
   \dontshow{
    ## All examples use a temporary directory
    Sys.setenv(TAXADB_HOME=tempdir())
+   options("taxadb_default_provider"="itis_test")
+
   }
   ## Install the ITIS database
-  td_create("itis")
+  td_create()
 
   ## force re-install:
-  td_create("itis", overwrite = TRUE)
+  td_create( overwrite = TRUE)
 
 }
 }

@@ -30,7 +30,7 @@ See \verb{[td_create]} for a list of recognized providers.}
 the term anywhere in the name?}
 
 \item{version}{Which version of the taxadb provider database should we use?
-defaults to latest.  See \link{available_versions} for details.}
+defaults to latest.  See \link{tl_import} for details.}
 
 \item{db}{a connection to the taxadb database. See details.}
 
@@ -62,6 +62,7 @@ expressions at this time.
   \dontshow{
    ## All examples use a temporary directory
    Sys.setenv(TAXADB_HOME=tempdir())
+   options("taxadb_default_provider"="itis_test")
   }
 
 ## match any common name containing:
@@ -69,7 +70,7 @@ name <- c("woodpecker", "monkey")
 fuzzy_filter(name, "vernacularName")
 
 ## match scientific name
-fuzzy_filter("Homo ", "scientificName",
+fuzzy_filter("Chera", "scientificName",
              match = "starts_with")
 }
 

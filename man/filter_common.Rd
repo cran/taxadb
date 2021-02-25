@@ -22,7 +22,7 @@ Default is 'itis', which can also be configured using \verb{options(default_taxa
 See \verb{[td_create]} for a list of recognized providers.}
 
 \item{version}{Which version of the taxadb provider database should we use?
-defaults to latest.  See \link{available_versions} for details.}
+defaults to latest.  See \link{tl_import} for details.}
 
 \item{collect}{logical, default \code{TRUE}. Should we return an in-memory
 data.frame (default, usually the most convenient), or a reference to
@@ -45,13 +45,19 @@ Look up taxonomic information by common name
 \donttest{
   \dontshow{
    ## All examples use a temporary directory
+   options("taxadb_default_provider"="itis_test")
    Sys.setenv(TAXADB_HOME=tempdir())
   }
 
-filter_common("Angolan Giraffe")
+filter_common("Pied Tamarin")
 
 }
 
+  \dontshow{
+   ## All examples use a temporary directory
+   Sys.unsetenv("TAXADB_HOME")
+   options("taxadb_default_provider" = NULL)
+  }
 }
 \seealso{
 Other filter_by: 

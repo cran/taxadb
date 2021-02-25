@@ -20,7 +20,7 @@ See \verb{[td_create]} for a list of recognized providers.}
 (for the Common names table.)}
 
 \item{version}{Which version of the taxadb provider database should we use?
-defaults to latest.  See \link{available_versions} for details.}
+defaults to latest.  See \link{tl_import} for details.}
 
 \item{db}{a connection to the taxadb database. See details.}
 }
@@ -32,18 +32,14 @@ Return a reference to a given table in the taxadb database
   \dontshow{
    ## All examples use a temporary directory
    Sys.setenv(TAXADB_HOME=tempdir())
+   options("taxadb_default_provider"="itis_test")
   }
 
-  #Clean a list of messy common names
-  names <- clean_names(c("Steller's jay", "coopers Hawk"),
-                binomial_only = FALSE, remove_sp = FALSE, remove_punc = TRUE)
+  ## default schema is the dwc table
+  taxa_tbl()
 
-  #Get cleaned common names from a provider and
-  # search for cleaned names in that table
-  taxa_tbl("itis", "common") \%>\%
-  mutate_db(clean_names, "vernacularName", "vernacularNameClean",
-            binomial_only = FALSE, remove_sp = FALSE, remove_punc = TRUE) \%>\%
-  filter(vernacularNameClean \%in\% names)
+  ## common names table
+  taxa_tbl(schema = "common")
 
 
 

@@ -32,7 +32,7 @@ See \verb{[td_create]} for a list of recognized providers.}
 (for the Common names table.)}
 
 \item{version}{Which version of the taxadb provider database should we use?
-defaults to latest.  See \link{available_versions} for details.}
+defaults to latest.  See \link{tl_import} for details.}
 
 \item{collect}{logical, default \code{TRUE}. Should we return an in-memory
 data.frame (default, usually the most convenient), or a reference to
@@ -59,6 +59,7 @@ joining on the \code{by} column to return all rows matching the \code{x} values
   \dontshow{
    ## All examples use a temporary directory
    Sys.setenv(TAXADB_HOME=tempdir())
+   options("taxadb_default_provider"="itis_test")
   }
 
 sp <- c("Trochalopteron henrici gucenense",
