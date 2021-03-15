@@ -19,6 +19,8 @@
 #' @param taxadb_db Connection to from `[td_connect()]`.
 #' @param ignore_case should we ignore case (capitalization) in matching names?
 #' default is `TRUE`.
+#' @param warn should we display warnings on NAs resulting from multiply-resolved matches?
+#' (Unlike unmatched names, these NAs can usually be resolved manually via [filter_id()])
 #' @param ... additional arguments (currently ignored)
 #' @return a vector of IDs, of the same length as the input names Any
 #' unmatched names or multiply-matched names will return as [NA]s.
@@ -58,35 +60,54 @@ get_ids <- function(names,
                     version = latest_version(),
                     taxadb_db = td_connect(),
                     ignore_case = TRUE,
+                    warn = TRUE,
                     ...){
   format <- match.arg(format)
   n <- length(names)
+  provider <- db
+
 
   # be compatible with common space delimiters
   names <- gsub("[_|-|\\.]", " ", names)
 
-  df <- filter_name(name = names,
-                provider = db,
+  taxa <- filter_name(name = names,
+                provider = provider,
                 version = version,
                 collect = TRUE,
                 ignore_case = ignore_case,
                 db = taxadb_db) %>%
     arrange(sort)
 
-  df <- duplicate_as_unresolved(df)
+  out <- vapply(names, function(x){
+    df <- taxa[x == taxa$scientificName, ]
+    df <- df[!is.na(df$scientificName),]
 
-  if(dim(df)[1] != n){
-    stop(paste("Error in resolving possible duplicate names.",
-               "Try the filter_name() function instead."),
-         .call = FALSE)
-  }
+    if(nrow(df) < 1) return(NA_character_)
 
-  ##
-  if("acceptedNameUsageID" %in% names(df)){
-    out <- dplyr::pull(df, "acceptedNameUsageID")
-  } else {
-    out <- dplyr::pull(df, "taxonID")
-  }
+    # Unambiguous: one acceptedNameUsageID per name
+    if(nrow(df)==1) return(df$acceptedNameUsageID[1])
+
+    ## Drop infraspecies when not perfect match
+    df <- df[is.na(df$infraspecificEpithet),]
+
+    ## If we resolve to a unique accepted ID, return that
+    ids <- unique(df$acceptedNameUsageID)
+    if(length(ids)==1){
+      return(ids)
+    } else {
+      if(warn){
+      warning(paste0("  Found ", bb(length(ids)), " possible identifiers for ",
+                     ibr(x),
+                     ".\n  Returning ", bb('NA'), ". Try ",
+                     bb(paste0("filter_id('", x, "', '", db,"')")),
+                     " to resolve manually.\n"),
+              call. = FALSE)
+      }
+      return(NA_character_)
+    }
+  },
+  character(1L), USE.NAMES = FALSE)
+
 
   ## Format ID as requested
   switch(format,
@@ -122,3 +143,12 @@ prefix_to_uri <- function(x){
   replace_empty(out)
 }
 
+
+ibr <- function(...){
+  if(!requireNamespace("crayon", quietly = TRUE)) return(paste(...))
+  crayon::italic(crayon::bold(crayon::red(...)))
+}
+bb <- function(...){
+  if(!requireNamespace("crayon", quietly = TRUE)) return(paste(...))
+  crayon::bold(crayon::blue(...))
+}
