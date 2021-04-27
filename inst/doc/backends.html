@@ -12,7 +12,7 @@
 
 <meta name="author" content="Carl Boettiger, Kari Norman" />
 
-<meta name="date" content="2021-03-14" />
+<meta name="date" content="2021-04-27" />
 
 <title>Backends for taxadb</title>
 
@@ -336,7 +336,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 <h1 class="title toc-ignore">Backends for taxadb</h1>
 <h4 class="author">Carl Boettiger, Kari Norman</h4>
-<h4 class="date">2021-03-14</h4>
+<h4 class="date">2021-04-27</h4>
 
 
 
@@ -347,7 +347,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 </div>
 <div id="monetdblite-duckdb" class="section level1">
 <h1>MonetDBLite &amp; duckdb</h1>
-<p><code>MonetDBLite</code> is a modern alternative to <code>RSQLite</code>. <code>MonetDBLite</code> is both more powerful than SQLite (in supporting a greater array of operations), and can run much faster. Filtering joins in particular can be much faster even than the in-memory operations of <code>dplyr</code>. Because filtering joins lie at the heart of many <code>taxadb</code> functions this can yield substantial improvements in performance. Unfortunately, the R interface, <code>MonetDBLite</code> was removed from CRAN in April 2019. The package can still be installed from GitHub by running <code>devtools::install_github(&quot;hannesmuehleisen/MonetDBLite-R&quot;)</code>, though this requires the appropriate compilers. The developer plans to replace MonetDBLite with <code>duckdb</code>, (see <a href="https://github.com/cwida/duckdb" class="uri">https://github.com/cwida/duckdb</a>), but this is not yet feature complete and thus not yet fully compatible for <code>taxadb</code> use. Because installation is more difficult, <code>MonetDBLite</code> is not a required dependency, but will be used by default if <code>taxadb</code> detects an existing installation. <code>duckdb</code> support will be switched on as the first priority in the method waterfall.</p>
+<p><code>MonetDBLite</code> is a modern alternative to <code>RSQLite</code>. <code>MonetDBLite</code> is both more powerful than SQLite (in supporting a greater array of operations), and can run much faster. Filtering joins in particular can be much faster even than the in-memory operations of <code>dplyr</code>. Because filtering joins lie at the heart of many <code>taxadb</code> functions this can yield substantial improvements in performance. Unfortunately, the R interface, <code>MonetDBLite</code> was removed from CRAN in April 2019. The package can still be installed from GitHub by running <code>devtools::install_github(&quot;hannesmuehleisen/MonetDBLite-R&quot;)</code>, though this requires the appropriate compilers. The developer plans to replace MonetDBLite with <code>duckdb</code>, (see <a href="https://github.com/duckdb/duckdb" class="uri">https://github.com/duckdb/duckdb</a>), but this is not yet feature complete and thus not yet fully compatible for <code>taxadb</code> use. Because installation is more difficult, <code>MonetDBLite</code> is not a required dependency, but will be used by default if <code>taxadb</code> detects an existing installation. <code>duckdb</code> support will be switched on as the first priority in the method waterfall.</p>
 </div>
 <div id="in-memory" class="section level1">
 <h1>in-memory</h1>
