@@ -1,6 +1,8 @@
+Agrostis
 Animalia
 Anser
 Aves
+CMD
 Catalogue
 DCAT
 DOI
@@ -26,21 +28,23 @@ SeaLifeBase
 Trochalopteron
 WikiData
 Wikidata
+acceptedNameUsage
+acceptedNameUsageID
 bicolor
 blazingly
 bugfix
 bz
+caespitosa
 canagica
 canagicus
 cladistic
+contentid
 cryptographic
 dbplyr
-dplyr
 duckdb
 dwc
 eval
 failsafe
-fishbase
 github
 gucenense
 harddisk
@@ -50,6 +54,7 @@ https
 itis
 iucnredlist
 lifecycle
+pluggable
 pre
 reproducibility
 ropensci
@@ -57,6 +62,7 @@ schemas
 scientificName
 scientificNames
 sha
+specificEpithet
 superorder
 taxize
 taxonIDs
@@ -64,4 +70,3 @@ taxonRank
 tbl
 tdwg
 wikidata
-www
