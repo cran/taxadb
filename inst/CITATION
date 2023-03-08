@@ -1,7 +1,7 @@
 
 bibentry(bibtype = "Article",
   title        = "taxadb: A high-performance local taxonomic database interface",
-  author       = c(as.person("Kari E. A. Norman"),
+  author       = c(as.person("Kari E. A Norman"),
                    as.person("Scott Chamberlain"),
                    as.person("Carl Boettiger")),
   journal      = "Methods in Ecology and Evolution",
@@ -14,5 +14,5 @@ bibentry(bibtype = "Article",
   paste("Kari E. A. Norman, Scott Chamberlain, and Carl Boettiger (2020).",
         "taxadb: A high-performance local taxonomic database interface.",
         "Methods in Ecology and Evolution, 11(9), 1153-1159.",
-        "doi:10.1111/2041-210X.13440.")
+        "https://doi.org/10.1111/2041-210X.13440")
 )
